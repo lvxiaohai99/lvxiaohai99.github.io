@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="辛巴成长记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="(三)Java高并发秒杀系统API之Web层开发既然是Web层的会肯定要先引入SpringMvc了 修改web.xml,引入SpringMvc的DispatcherServlet：1234567891011121314151617181920212223242526&amp;lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;         xmlns">
+<meta name="keywords" content="son">
+<meta property="og:type" content="website">
+<meta property="og:title" content="辛巴成长记">
+<meta property="og:url" content="http://yoursite.com/note/note3.html">
+<meta property="og:site_name" content="辛巴成长记">
+<meta property="og:description" content="(三)Java高并发秒杀系统API之Web层开发既然是Web层的会肯定要先引入SpringMvc了 修改web.xml,引入SpringMvc的DispatcherServlet：1234567891011121314151617181920212223242526&amp;lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;         xmlns">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/resources.jpg">
+<meta property="og:image" content="http://yoursite.com/images/result_1.jpg">
+<meta property="og:updated_time" content="2018-04-18T08:54:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="辛巴成长记">
+<meta name="twitter:description" content="(三)Java高并发秒杀系统API之Web层开发既然是Web层的会肯定要先引入SpringMvc了 修改web.xml,引入SpringMvc的DispatcherServlet：1234567891011121314151617181920212223242526&amp;lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;         xmlns">
+<meta name="twitter:image" content="http://yoursite.com/images/resources.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/note/note3.html">
+
+
+
+
+
+  <title> | 辛巴成长记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">辛巴成长记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">little Simba</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline"></h1>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <h3 id="三-Java高并发秒杀系统API之Web层开发"><a href="#三-Java高并发秒杀系统API之Web层开发" class="headerlink" title="(三)Java高并发秒杀系统API之Web层开发"></a>(三)Java高并发秒杀系统API之Web层开发</h3><h4 id="既然是Web层的会肯定要先引入SpringMvc了"><a href="#既然是Web层的会肯定要先引入SpringMvc了" class="headerlink" title="既然是Web层的会肯定要先引入SpringMvc了"></a>既然是Web层的会肯定要先引入SpringMvc了</h4><ul>
+<li>修改<code>web.xml</code>,引入<code>SpringMvc</code>的<code>DispatcherServlet</code>：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee</span></span></span><br><span class="line"><span class="tag"><span class="string">                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"3.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">metadata-complete</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--用maven创建的web-app需要修改servlet的版本为3.0--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>seckill-dispatchServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--配置springmvc的配置文件--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:spring/applicationContext-*.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">            1</span><br><span class="line">        <span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>seckill-dispatchServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--直接拦截所有请求,不再采用spring2.0的/*或者*.do方式--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在这里的话如果你不配置这一段代码的：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置springmvc的配置文件--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:spring/applicationContext-*.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>SpringMvc默认就会默认去<code>WEB-INF</code>下查找默认规范的配置文件,像我这里配置的<code>servlet-name</code>是<code>seckill-dispatchServlet</code>的话,则默认会寻找<code>WEB-INF</code>一个名为<code>seckill-dispatchServlet-Servlet.xml</code>的配置文件</p>
+<h4 id="接下来编写Controller-SeckillController"><a href="#接下来编写Controller-SeckillController" class="headerlink" title="接下来编写Controller  SeckillController"></a>接下来编写Controller  <code>SeckillController</code></h4><p>首先在<code>com.suny</code>下建立包为<code>Controller</code>的包,然后在里面新建一个类<code>SeckillController</code>：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.suny.controller;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by 孙建荣 on 17-5-24.下午10:11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/seckill"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeckillController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SeckillService seckillService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeckillController</span><span class="params">(SeckillService seckillService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.seckillService = seckillService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 进入秒杀列表.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> model 模型数据,里面放置有秒杀商品的信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 秒杀列表详情页面</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/list"</span>, method = RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">list</span><span class="params">(Model model)</span> </span>&#123;</span><br><span class="line">        List&lt;Seckill&gt; seckillList = seckillService.getSeckillList();</span><br><span class="line">        model.addAttribute(<span class="string">"list"</span>, seckillList);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"list"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/&#123;seckillId&#125;/detail"</span>, method = RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">detail</span><span class="params">(@PathVariable(<span class="string">"seckillId"</span>)</span> Long seckillId, Model model) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (seckillId == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"redirect:/seckill/list"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Seckill seckill = seckillService.getById(seckillId);</span><br><span class="line">        <span class="keyword">if</span> (seckill == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"forward:/seckill/list"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        model.addAttribute(<span class="string">"seckill"</span>, seckill);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"detail"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 暴露秒杀接口的方法.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> seckillId 秒杀商品的id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 根据用户秒杀的商品id进行业务逻辑判断,返回不同的json实体结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/&#123;seckillId&#125;/exposer"</span>, method = RequestMethod.GET)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SeckillResult&lt;Exposer&gt; <span class="title">exposer</span><span class="params">(@PathVariable(<span class="string">"seckillId"</span>)</span> Long seckillId) </span>&#123;</span><br><span class="line">        <span class="comment">// 查询秒杀商品的结果</span></span><br><span class="line">        SeckillResult&lt;Exposer&gt; result;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Exposer exposer = seckillService.exportSeckillUrl(seckillId);</span><br><span class="line">            result = <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">true</span>, exposer);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            result = <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">false</span>, e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户执行秒杀,在页面点击相应的秒杀连接,进入后获取对应的参数进行判断,返回相对应的json实体结果,前端再进行处理.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> seckillId 秒杀的商品,对应的时秒杀的id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> md5       一个被混淆的md5加密值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> userPhone 参与秒杀用户的额手机号码,当做账号密码使用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 参与秒杀的结果,为json数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/&#123;seckillId&#125;/&#123;md5&#125;/execution"</span>, method = RequestMethod.POST)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SeckillResult&lt;SeckillExecution&gt; <span class="title">execute</span><span class="params">(@PathVariable(<span class="string">"seckillId"</span>)</span> <span class="keyword">long</span> seckillId,</span></span><br><span class="line"><span class="function">                                                   @<span class="title">PathVariable</span><span class="params">(<span class="string">"md5"</span>)</span> String md5,</span></span><br><span class="line"><span class="function">                                                   @<span class="title">CookieValue</span><span class="params">(value = <span class="string">"userPhone"</span>, required = <span class="keyword">false</span>)</span> Long userPhone) </span>&#123;</span><br><span class="line">        <span class="comment">// 如果用户的手机号码为空的说明没有填写手机号码进行秒杀</span></span><br><span class="line">        <span class="keyword">if</span> (userPhone == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">false</span>, <span class="string">"没有注册"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 根据用户的手机号码,秒杀商品的id跟md5进行秒杀商品,没异常就是秒杀成功</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 这里换成储存过程</span></span><br><span class="line"> SeckillExecution execution = seckillService.executeSeckill(seckillId, userPhone, md5);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">true</span>, execution);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RepeatKillException e1) &#123;</span><br><span class="line">            <span class="comment">// 重复秒杀</span></span><br><span class="line">            SeckillExecution execution = <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.REPEAT_KILL);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">false</span>, execution);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SeckillCloseException e2) &#123;</span><br><span class="line">            <span class="comment">// 秒杀关闭</span></span><br><span class="line">            SeckillExecution execution = <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.END);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">false</span>, execution);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SeckillException e) &#123;</span><br><span class="line">            <span class="comment">// 不能判断的异常</span></span><br><span class="line">            SeckillExecution execution = <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.INNER_ERROR);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">false</span>, execution);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果有异常就是秒杀失败</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取服务器端时间,防止用户篡改客户端时间提前参与秒杀</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 时间的json数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/time/now"</span>, method = RequestMethod.GET)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SeckillResult&lt;LocalDateTime&gt; <span class="title">time</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        LocalDateTime localDateTime = LocalDateTime.now();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">true</span>, localDateTime);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="建立一个全局ajax请求返回类-返回json类型"><a href="#建立一个全局ajax请求返回类-返回json类型" class="headerlink" title="建立一个全局ajax请求返回类,返回json类型"></a>建立一个全局ajax请求返回类,返回json类型</h4><p><code>SeckillResult</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.suny.dto;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 封装所有的ajax请求返回类型,方便返回json</span></span><br><span class="line"><span class="comment"> * Created by 孙建荣 on 17-5-24.下午10:18</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeckillResult</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> success;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> T data;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String error;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeckillResult</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeckillResult</span><span class="params">(<span class="keyword">boolean</span> success, T data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.success = success;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeckillResult</span><span class="params">(<span class="keyword">boolean</span> success, String error)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.success = success;</span><br><span class="line">        <span class="keyword">this</span>.error = error;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSuccess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> success;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSuccess</span><span class="params">(<span class="keyword">boolean</span> success)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.success = success;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(T data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getError</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> error;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setError</span><span class="params">(String error)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.error = error;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"SeckillResult&#123;"</span> +</span><br><span class="line">                <span class="string">"状态="</span> + success +</span><br><span class="line">                <span class="string">", 数据="</span> + data +</span><br><span class="line">                <span class="string">", 错误消息='"</span> + error + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="页面的编写"><a href="#页面的编写" class="headerlink" title="页面的编写"></a>页面的编写</h4><p>因为项目的前端页面都是由<code>Bootstrap</code>开发的,所以我们要先去下载<code>Bootstrap</code>或者是使用在线的CDN.<br> -<a href="http://www.bootcss.com/" target="_blank" rel="noopener">Bootstrap中文官网</a><br> -<a href="http://v3.bootcss.com/" target="_blank" rel="noopener">Bootstrap中文文档</a><br> 使用在线CDN引入的方法:<br> <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 最新版本的 Bootstrap 核心 CSS 文件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"</span> <span class="attr">integrity</span>=<span class="string">"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"</span> <span class="attr">crossorigin</span>=<span class="string">"anonymous"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 可选的 Bootstrap 主题文件（一般不用引入） --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"</span> <span class="attr">integrity</span>=<span class="string">"sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"</span> <span class="attr">crossorigin</span>=<span class="string">"anonymous"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 最新的 Bootstrap 核心 JavaScript 文件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"</span> <span class="attr">integrity</span>=<span class="string">"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"</span> <span class="attr">crossorigin</span>=<span class="string">"anonymous"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>文档里面写的很详细,然后我这里是使用离线版本的,方便我们本地调试,避免出现什么别的因素干扰我们:</p>
+<ul>
+<li>首先下载<code>JQuery</code>,因为<code>Bootstrap</code>就是依赖<code>JQuery</code>的</li>
+<li>然后下载<code>Bootstrap</code></li>
+<li><p>然后下载一个倒计时插件<code>jquery.countdown.min.js</code><br>-再下载一个操作<code>Cookie</code>插件<code>jquery.cookie.min.js</code><br>如图放置:<br><img src="/images/resources.jpg" alt="资源图"></p>
+</li>
+<li><p>首先编写一个公共的头部<code>jsp</code>文件,位于<code>WEB-INF</code>下<code>common</code>中的<code>head.jsp</code></p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br><span class="line">&lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"$&#123;pageContext.request.contextPath&#125;/resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css"</span> type=<span class="string">"text/css"</span>&gt;</span><br><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"$&#123;pageContext.request.contextPath&#125;/resources/plugins/bootstrap-3.3.0/css/bootstrap-theme.min.css"</span> type=<span class="string">"text/css"</span>&gt;</span><br><span class="line">  ````   </span><br><span class="line">  - 然后编写一个公共的`jstl`标签库文件,位于`WEB-INF`下`common`中的`tag.jsp`</span><br><span class="line">  ```jsp</span><br><span class="line">&lt;%<span class="meta">@taglib</span> prefix=<span class="string">"c"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> %&gt;</span><br><span class="line">&lt;%@ taglib prefix=<span class="string">"fmt"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/fmt"</span> %&gt;</span><br><span class="line">&lt;%@ taglib prefix=<span class="string">"fn"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/functions"</span> %&gt;</span><br><span class="line">```  </span><br><span class="line">  - 编写列表页面,位于`WEB-INF`下`common`中的`list.jsp`</span><br><span class="line">  ````jsp</span><br><span class="line">  &lt;%<span class="meta">@page</span> contentType=<span class="string">"text/html; charset=UTF-8"</span> language=<span class="string">"java"</span> %&gt;</span><br><span class="line">  &lt;%<span class="meta">@include</span> file=<span class="string">"common/tag.jsp"</span> %&gt;</span><br><span class="line">  &lt;!DOCTYPE html&gt;</span><br><span class="line">  &lt;html lang=<span class="string">"zh-CN"</span>&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">      &lt;title&gt;秒杀列表&lt;/title&gt;</span><br><span class="line">      &lt;%<span class="meta">@include</span> file=<span class="string">"common/head.jsp"</span> %&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"container"</span>&gt;</span><br><span class="line">      &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel panel-default"</span>&gt;</span><br><span class="line">          &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel-heading text-center"</span>&gt;</span><br><span class="line">              &lt;h2&gt;秒杀列表&lt;/h2&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">  </span><br><span class="line">          &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel-body"</span>&gt;</span><br><span class="line">              &lt;table <span class="class"><span class="keyword">class</span></span>=<span class="string">"table table-hover"</span>&gt;</span><br><span class="line">                  &lt;thead&gt;</span><br><span class="line">                  &lt;tr&gt;</span><br><span class="line">                      &lt;td&gt;名称&lt;/td&gt;</span><br><span class="line">                      &lt;td&gt;库存&lt;/td&gt;</span><br><span class="line">                      &lt;td&gt;开始时间&lt;/td&gt;</span><br><span class="line">                      &lt;td&gt;结束时间&lt;/td&gt;</span><br><span class="line">                      &lt;td&gt;创建时间&lt;/td&gt;</span><br><span class="line">                      &lt;td&gt;详情页&lt;/td&gt;</span><br><span class="line">                  &lt;/tr&gt;</span><br><span class="line">                  &lt;/thead&gt;</span><br><span class="line">                  &lt;tbody&gt;</span><br><span class="line">                  &lt;c:forEach items=<span class="string">"$&#123;list&#125;"</span> <span class="keyword">var</span>=<span class="string">"sk"</span>&gt;</span><br><span class="line">                      &lt;tr&gt;</span><br><span class="line">                          &lt;td&gt;$&#123;sk.name&#125;&lt;/td&gt;</span><br><span class="line">                          &lt;td&gt;$&#123;sk.number&#125;&lt;/td&gt;</span><br><span class="line">                          &lt;td&gt;&lt;fmt:formatDate value="$&#123;sk.startTime&#125;" pattern="yyyy-MM-dd HH:mm:ss"/&gt;&lt;/td&gt;</span><br><span class="line">                                                   &lt;td&gt;&lt;fmt:formatDate value="$&#123;sk.endTime&#125;" pattern="yyyy-MM-dd HH:mm:ss"/&gt;&lt;/td&gt;</span><br><span class="line">                                                   &lt;td&gt;&lt;fmt:formatDate value="$&#123;sk.createTIme&#125;" pattern="yyyy-MM-dd HH:mm:ss"/&gt;&lt;/td&gt;</span><br><span class="line">                          &lt;td&gt;&lt;a class="btn btn-info" href="/seckill/$&#123;sk.seckillId&#125;/detail" target="_blank"&gt;详情&lt;/a&gt;&lt;/td&gt;</span><br><span class="line">                      &lt;/tr&gt;</span><br><span class="line">                  &lt;/c:forEach&gt;</span><br><span class="line">                  &lt;/tbody&gt;</span><br><span class="line">              &lt;/table&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">  &lt;script src="$&#123;pageContext.request.contextPath&#125;/resources/plugins/jquery.js"&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script src="$&#123;pageContext.request.contextPath&#125;/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"&gt;&lt;/script&gt;</span><br><span class="line">  &lt;/html&gt;</span><br><span class="line"></span><br><span class="line">  `</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编写列表页面,位于<code>WEB-INF</code>下<code>common</code>中的<code>detail.jsp</code>,秒杀详情页面<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line">  Created by IntelliJ IDEA.</span><br><span class="line">  User: jianrongsun</span><br><span class="line">  Date: <span class="number">17</span>-<span class="number">5</span>-<span class="number">25</span></span><br><span class="line">  Time: 下午<span class="number">5</span>:<span class="number">03</span></span><br><span class="line">  To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">"text/html;charset=UTF-8"</span> language=<span class="string">"java"</span> %&gt;</span><br><span class="line">&lt;%<span class="meta">@include</span> file=<span class="string">"common/tag.jsp"</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;秒杀商品详情页面&lt;/title&gt;</span><br><span class="line">    &lt;%<span class="meta">@include</span> file=<span class="string">"common/head.jsp"</span> %&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"container"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel panel-default"</span>&gt;</span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel-heading"</span>&gt;</span><br><span class="line">            &lt;h1&gt;$&#123;seckill.name&#125;&lt;/h1&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel-body"</span>&gt;</span><br><span class="line">            &lt;h2 <span class="class"><span class="keyword">class</span></span>=<span class="string">"text-danger"</span>&gt;</span><br><span class="line">                &lt;span class="glyphicon glyphicon-time"&gt;&lt;/span&gt;</span><br><span class="line">                &lt;span class="glyphicon" id="seckill-box"&gt;&lt;/span&gt;</span><br><span class="line">            &lt;/h2&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id=<span class="string">"killPhoneModal"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"modal fade"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"modal-dialog"</span>&gt;</span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"modal-content"</span>&gt;</span><br><span class="line">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"modal-header"</span>&gt;</span><br><span class="line">                &lt;h3 <span class="class"><span class="keyword">class</span></span>=<span class="string">"modal-title text-center"</span>&gt;</span><br><span class="line">                    &lt;span class="glyphicon glyphicon-phone"&gt;&lt;/span&gt;秒杀电话:</span><br><span class="line">                &lt;/h3&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"modal-body"</span>&gt;</span><br><span class="line">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"row"</span>&gt;</span><br><span class="line">                &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"col-xs-8 col-xs-offset-2"</span>&gt;</span><br><span class="line">                    &lt;input type=<span class="string">"text"</span> name=<span class="string">"killPhone"</span> id=<span class="string">"killPhoneKey"</span> placeholder=<span class="string">"填写手机号码"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control"</span>&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"modal-footer"</span>&gt;</span><br><span class="line">            &lt;span id="killPhoneMessage" class="glyphicon"&gt;&lt;/span&gt;</span><br><span class="line">            &lt;button type=<span class="string">"button"</span> id=<span class="string">"killPhoneBtn"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"btn btn-success"</span>&gt;</span><br><span class="line">                &lt;span class="glyphicon glyphicon-phone"&gt;&lt;/span&gt;</span><br><span class="line">                提交</span><br><span class="line">            &lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script src="$&#123;pageContext.request.contextPath&#125;/resources/plugins/jquery.js"&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src="$&#123;pageContext.request.contextPath&#125;/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src="$&#123;pageContext.request.contextPath&#125;/resources/plugins/jquery.cookie.min.js"&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src="$&#123;pageContext.request.contextPath&#125;/resources/plugins/jquery.countdown.min.js"&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src="$&#123;pageContext.request.contextPath&#125;/resources/script/seckill.js"&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    $(function () &#123;</span><br><span class="line">        <span class="keyword">var</span> startTimeVal = <span class="string">"$&#123;seckill.startTime.toLocalDate()&#125; "</span> + seckill.cloneZero(<span class="string">"$&#123;seckill.startTime.toLocalTime()&#125;"</span>);</span><br><span class="line">        <span class="keyword">var</span> endTimeVal = <span class="string">"$&#123;seckill.endTime.toLocalDate()&#125; "</span> + seckill.cloneZero(<span class="string">"$&#123;seckill.endTime.toLocalTime()&#125;"</span>);</span><br><span class="line">        console.log(<span class="string">"startTimeVal========"</span> + startTimeVal);</span><br><span class="line">        console.log(<span class="string">"endTimeVal========"</span> + endTimeVal);</span><br><span class="line">        <span class="comment">// 传入参数</span></span><br><span class="line">        seckill.detail.init(&#123;</span><br><span class="line">            seckillId:$&#123;seckill.seckillId&#125;,</span><br><span class="line">            startTime: startTimeVal,</span><br><span class="line">            endTime: endTimeVal</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>然后把项目运行一下我们又会碰到一个错误就是<code>jstl</code>中的<code>fmt</code>标签格式化时间只能格式化<code>java.Util.Date</code>类型的日期跟时间,而在我们这里我么使用了<code>java8</code>的<code>LocalDateTIme</code>,所以解析时间会出异常,这时我们应该想到自己去实现<code>jstl</code>标签来自定义解析这个时间日期<br>自定义标签步骤如下:  </p>
+</li>
+<li>在<code>/WEB-INF</code>创建目录 <code>tags</code></li>
+<li>然后创建一个文件<code>localDateTime.tag</code> 在<code>tags</code>目录下<ul>
+<li><code>localData.tag</code>用来格式化日期<ul>
+<li><code>localDataTime.tag</code>用来格式化日期跟时间的组合,也就是数据库中的<code>Timestamp</code>类型<br>-然后在<code>localDataTime.tag</code>中写自己自定义的格式化流程<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%--格式化java8的LocalDatime,解决jstl不支持java8时间的问题--%</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">tag</span> <span class="attr">body-content</span>=<span class="string">"empty"</span> <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span> <span class="attr">trimDirectiveWhitespaces</span>=<span class="string">"true"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">prefix</span>=<span class="string">"fmt"</span> <span class="attr">uri</span>=<span class="string">"http://java.sun.com/jsp/jstl/fmt"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">prefix</span>=<span class="string">"c"</span> <span class="attr">uri</span>=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">prefix</span>=<span class="string">"fn"</span> <span class="attr">uri</span>=<span class="string">"http://java.sun.com/jsp/jstl/functions"</span> %&gt;</span></span><br><span class="line">&lt;%--        这里是定义页面使用标签中的属性设置,&lt;tags:localDataTime dateTime="$&#123;sk.createTIme&#125;"/&gt;     --%&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">attribute</span> <span class="attr">name</span>=<span class="string">"dateTime"</span> <span class="attr">required</span>=<span class="string">"true"</span> <span class="attr">type</span>=<span class="string">"java.time.LocalDateTime"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">attribute</span> <span class="attr">name</span>=<span class="string">"pattern"</span> <span class="attr">required</span>=<span class="string">"false"</span> <span class="attr">type</span>=<span class="string">"java.lang.String"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%--首选判断日期时间转换规则是否存在,不存在给出默认的规则--%</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">"$&#123;empty pattern&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"pattern"</span> <span class="attr">value</span>=<span class="string">"yyyy-MM-dd HH:mm:ss"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"datetime"</span> <span class="attr">value</span>=<span class="string">"$&#123;dateTime&#125;"</span>/&gt;</span>                        <span class="tag">&lt;<span class="name">%--</span> 获取<span class="attr">jsp</span>页面传入的【 日期时间 】,格式为【 <span class="attr">2017-5-26T13:59:12</span>  】 <span class="attr">--</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"time"</span> <span class="attr">value</span>=<span class="string">"$&#123;fn:substringAfter(datetime, 'T')&#125;"</span>/&gt;</span>     <span class="tag">&lt;<span class="name">%--</span>   获取页面传过来的【时间<span class="attr">T</span>】后面的 【  时<span class="attr">:</span>分<span class="attr">:</span>秒 】的值  <span class="attr">--</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"timeLength"</span> <span class="attr">value</span>=<span class="string">"$&#123;fn:length(time)&#125;"</span>/&gt;</span>                <span class="tag">&lt;<span class="name">%--</span>  获取页面传来的 【 时<span class="attr">:</span>分<span class="attr">:</span>秒 的长度  】 <span class="attr">--</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"generalLength"</span> <span class="attr">value</span>=<span class="string">"$&#123;fn:length('123456')&#125;"</span>/&gt;</span>         <span class="tag">&lt;<span class="name">%--</span>  这里定义了一个【<span class="attr">Integer</span>】类型的值,值为字符串 【<span class="attr">123456</span> 】的长度   <span class="attr">--</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"cloneZero"</span> <span class="attr">value</span>=<span class="string">":00"</span>/&gt;</span>                                 <span class="tag">&lt;<span class="name">%--</span>   这里设置一个值为【<span class="attr">String</span>】的字符串,     <span class="attr">--</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%--</span> 当  时<span class="attr">:</span>分<span class="attr">:</span>秒 不足<span class="attr">6</span>位的时候就说明缺少秒,我们给它自动补充 <span class="attr">:00</span>    <span class="attr">--</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">"$&#123;timeLength lt generalLength&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"datetimeCloneZero"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">value</span>=<span class="string">"$&#123;datetime&#125;$&#123;cloneZero&#125;"</span>/&gt;</span>          <span class="tag">&lt;<span class="name">%--</span>  拼接页面传过来的  【 时：分 】  ,补充一个【秒数】,<span class="attr">EL</span>中 + 为相加,非拼接字符串   <span class="attr">--</span>%&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"cleandDateTime"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">value</span>=<span class="string">"$&#123;fn:replace(datetimeCloneZero,'T',' ')&#125;"</span>/&gt;</span>      <span class="tag">&lt;<span class="name">%--</span>  把<span class="attr">java8</span>日期时间中的【 <span class="attr">T</span> 】给去掉,换成一个空的字符串    <span class="attr">--</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%--</span>  当页面传过来的时间大于<span class="attr">6</span>位时说明时间时完整的,不进行自动填充【 <span class="attr">:00</span> 】,直接把日期时间中的 【 <span class="attr">T</span> 】 替换为空字符串 <span class="attr">--</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">"$&#123;timeLength gt generalLength&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"cleandDateTime"</span> <span class="attr">value</span>=<span class="string">"$&#123;fn:replace(datetime,'T',' ')&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%--</span>   解析时间, <span class="attr">type</span>=<span class="string">"BOTH"</span>为同时解析日期跟时间    <span class="attr">--</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">fmt:parseDate</span> <span class="attr">value</span>=<span class="string">"$&#123;cleandDateTime&#125;"</span> <span class="attr">var</span>=<span class="string">"parsedDateTime"</span> <span class="attr">pattern</span>=<span class="string">"$&#123;pattern&#125;"</span> <span class="attr">type</span>=<span class="string">"BOTH"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">fmt:formatDate</span> <span class="attr">value</span>=<span class="string">"$&#123;parsedDateTime&#125;"</span> <span class="attr">pattern</span>=<span class="string">"$&#123;pattern&#125;"</span> <span class="attr">type</span>=<span class="string">"BOTH"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><code>localData.tag</code>的内容就比较简单了</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">tag</span> <span class="attr">body-content</span>=<span class="string">"empty"</span> <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span> <span class="attr">trimDirectiveWhitespaces</span>=<span class="string">"true"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">prefix</span>=<span class="string">"fmt"</span> <span class="attr">uri</span>=<span class="string">"http://java.sun.com/jsp/jstl/fmt"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">prefix</span>=<span class="string">"c"</span> <span class="attr">uri</span>=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> %&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">attribute</span> <span class="attr">name</span>=<span class="string">"date"</span> <span class="attr">required</span>=<span class="string">"true"</span> <span class="attr">type</span>=<span class="string">"java.time.LocalDate"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">attribute</span> <span class="attr">name</span>=<span class="string">"pattern"</span> <span class="attr">required</span>=<span class="string">"false"</span> <span class="attr">type</span>=<span class="string">"java.lang.String"</span> %&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">"$&#123;empty pattern&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"pattern"</span> <span class="attr">value</span>=<span class="string">"MM/dd/yyyy"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">fmt:parseDate</span> <span class="attr">value</span>=<span class="string">"$&#123;date&#125;"</span> <span class="attr">var</span>=<span class="string">"parsedDate"</span> <span class="attr">type</span>=<span class="string">"date"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">fmt:formatDate</span> <span class="attr">value</span>=<span class="string">"$&#123;parsedDate&#125;"</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">pattern</span>=<span class="string">"$&#123;pattern&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>然后我们去页面导入需要的标签,然后去使用,修改<code>list.jsp</code>文件<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> contentType=<span class="string">"text/html; charset=UTF-8"</span> language=<span class="string">"java"</span> %&gt;</span><br><span class="line">&lt;%<span class="meta">@include</span> file=<span class="string">"common/tag.jsp"</span> %&gt;  </span><br><span class="line">&lt;%<span class="meta">@taglib</span> prefix=<span class="string">"tags"</span> tagdir=<span class="string">"/WEB-INF/tags"</span> %&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"zh-CN"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;秒杀列表&lt;/title&gt;</span><br><span class="line">    &lt;%<span class="meta">@include</span> file=<span class="string">"common/head.jsp"</span> %&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"container"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel panel-default"</span>&gt;</span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel-heading text-center"</span>&gt;</span><br><span class="line">            &lt;h2&gt;秒杀列表&lt;/h2&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel-body"</span>&gt;</span><br><span class="line">            &lt;table <span class="class"><span class="keyword">class</span></span>=<span class="string">"table table-hover"</span>&gt;</span><br><span class="line">                &lt;thead&gt;</span><br><span class="line">                &lt;tr&gt;</span><br><span class="line">                    &lt;td&gt;名称&lt;/td&gt;</span><br><span class="line">                    &lt;td&gt;库存&lt;/td&gt;</span><br><span class="line">                    &lt;td&gt;开始时间&lt;/td&gt;</span><br><span class="line">                    &lt;td&gt;结束时间&lt;/td&gt;</span><br><span class="line">                    &lt;td&gt;创建时间&lt;/td&gt;</span><br><span class="line">                    &lt;td&gt;详情页&lt;/td&gt;</span><br><span class="line">                &lt;/tr&gt;</span><br><span class="line">                &lt;/thead&gt;</span><br><span class="line">                &lt;tbody&gt;</span><br><span class="line">                &lt;c:forEach items=<span class="string">"$&#123;list&#125;"</span> <span class="keyword">var</span>=<span class="string">"sk"</span>&gt;</span><br><span class="line">                    &lt;tr&gt;</span><br><span class="line">                        &lt;td&gt;$&#123;sk.name&#125;&lt;/td&gt;</span><br><span class="line">                        &lt;td&gt;$&#123;sk.number&#125;&lt;/td&gt;</span><br><span class="line">                        &lt;td&gt;&lt;tags:localDataTime dateTime="$&#123;sk.startTime&#125;"/&gt;&lt;/td&gt;</span><br><span class="line">                        &lt;td&gt;&lt;tags:localDataTime dateTime="$&#123;sk.endTime&#125;"/&gt;&lt;/td&gt;</span><br><span class="line">                        &lt;td&gt;&lt;tags:localDataTime dateTime="$&#123;sk.createTIme&#125;"/&gt;&lt;/td&gt;</span><br><span class="line">                        &lt;td&gt;&lt;a class="btn btn-info" href="/seckill/$&#123;sk.seckillId&#125;/detail" target="_blank"&gt;详情&lt;/a&gt;&lt;/td&gt;</span><br><span class="line">                    &lt;/tr&gt;</span><br><span class="line">                &lt;/c:forEach&gt;</span><br><span class="line">                &lt;/tbody&gt;</span><br><span class="line">            &lt;/table&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script src="$&#123;pageContext.request.contextPath&#125;/resources/plugins/jquery.js"&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src="$&#123;pageContext.request.contextPath&#125;/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"&gt;&lt;/script&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在这里我们修改了几个地方:</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@taglib</span> prefix=<span class="string">"tags"</span> tagdir=<span class="string">"/WEB-INF/tags"</span> %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;td&gt;&lt;tags:localDataTime dateTime="$&#123;sk.startTime&#125;"/&gt;&lt;/td&gt;</span><br><span class="line">&lt;td&gt;&lt;tags:localDataTime dateTime="$&#123;sk.endTime&#125;"/&gt;&lt;/td&gt;</span><br><span class="line">&lt;td&gt;&lt;tags:localDataTime dateTime="$&#123;sk.createTIme&#125;"/&gt;&lt;/td&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>然后我们的格式就应该可以正常被格式化出来了</p>
+<ul>
+<li>建立一个模块化的<code>seckill.js</code>文件,位于<code>Webapp</code>下 <code>resources</code>下<code>script</code>文件夹下,文件内容如下:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  模块化javaScript</span></span><br><span class="line"><span class="comment"> * Created by jianrongsun on 17-5-25.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> seckill = &#123;</span><br><span class="line">    <span class="comment">// 封装秒杀相关的ajax的url</span></span><br><span class="line">    URL: &#123;</span><br><span class="line">        now: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"/seckill/time/now"</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        exposer: <span class="function"><span class="keyword">function</span> (<span class="params">seckillId</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"/seckill/"</span> + seckillId + <span class="string">"/exposer"</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        execution: <span class="function"><span class="keyword">function</span> (<span class="params">seckillId, md5</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"/seckill/"</span> + seckillId + <span class="string">"/"</span> + md5 + <span class="string">"/execution"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 验证手机号码</span></span><br><span class="line">    validatePhone: <span class="function"><span class="keyword">function</span> (<span class="params">phone</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> !!(phone &amp;&amp; phone.length === <span class="number">11</span> &amp;&amp; !<span class="built_in">isNaN</span>(phone));</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 详情页秒杀业务逻辑</span></span><br><span class="line">    detail: &#123;</span><br><span class="line">        <span class="comment">// 详情页开始初始化</span></span><br><span class="line">        init: <span class="function"><span class="keyword">function</span> (<span class="params">params</span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"获取手机号码"</span>);</span><br><span class="line">            <span class="comment">// 手机号验证登录,计时交互</span></span><br><span class="line">            <span class="keyword">var</span> userPhone = $.cookie(<span class="string">'userPhone'</span>);</span><br><span class="line">            <span class="comment">// 验证手机号</span></span><br><span class="line">            <span class="keyword">if</span> (!seckill.validatePhone(userPhone)) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"未填写手机号码"</span>);</span><br><span class="line">                <span class="comment">// 验证手机控制输出</span></span><br><span class="line">                <span class="keyword">var</span> killPhoneModal = $(<span class="string">"#killPhoneModal"</span>);</span><br><span class="line">                killPhoneModal.modal(&#123;</span><br><span class="line">                    show: <span class="literal">true</span>,  <span class="comment">// 显示弹出层</span></span><br><span class="line">                    backdrop: <span class="string">'static'</span>,  <span class="comment">// 静止位置关闭</span></span><br><span class="line">                    keyboard: <span class="literal">false</span>    <span class="comment">// 关闭键盘事件</span></span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line">                $(<span class="string">"#killPhoneBtn"</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"提交手机号码按钮被点击"</span>);</span><br><span class="line">                    <span class="keyword">var</span> inputPhone = $(<span class="string">"#killPhoneKey"</span>).val();</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"inputPhone"</span> + inputPhone);</span><br><span class="line">                    <span class="keyword">if</span> (seckill.validatePhone(inputPhone)) &#123;</span><br><span class="line">                        <span class="comment">// 把电话写入cookie</span></span><br><span class="line">                        $.cookie(<span class="string">'userPhone'</span>, inputPhone, &#123;<span class="attr">expires</span>: <span class="number">7</span>, <span class="attr">path</span>: <span class="string">'/seckill'</span>&#125;);</span><br><span class="line">                        <span class="comment">// 验证通过 刷新页面</span></span><br><span class="line">                        <span class="built_in">window</span>.location.reload();</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="comment">// todo 错误文案信息写到前端</span></span><br><span class="line">                        $(<span class="string">"#killPhoneMessage"</span>).hide().html(<span class="string">"&lt;label class='label label-danger'&gt;手机号码错误&lt;/label&gt;"</span>).show(<span class="number">300</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"在cookie中找到了电话号码,开启计时"</span>);</span><br><span class="line">                <span class="comment">// 已经登录了就开始计时交互</span></span><br><span class="line">                <span class="keyword">var</span> startTime = params[<span class="string">'startTime'</span>];</span><br><span class="line">                <span class="keyword">var</span> endTime = params[<span class="string">'endTime'</span>];</span><br><span class="line">                <span class="keyword">var</span> seckillId = params[<span class="string">'seckillId'</span>];</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"开始秒杀时间======="</span> + startTime);</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"结束秒杀时间========"</span> + endTime);</span><br><span class="line">                $.get(seckill.URL.now(), &#123;&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">                    <span class="keyword">if</span> (result &amp;&amp; result[<span class="string">'success'</span>]) &#123;</span><br><span class="line">                        <span class="keyword">var</span> nowTime = seckill.convertTime(result[<span class="string">'data'</span>]);</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">"服务器当前的时间=========="</span> + nowTime);</span><br><span class="line">                        <span class="comment">// 进行秒杀商品的时间判断,然后计时交互</span></span><br><span class="line">                        seckill.countDown(seckillId, nowTime, startTime, endTime);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">'结果:'</span> + result);</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">'result'</span> + result);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    handlerSeckill: <span class="function"><span class="keyword">function</span> (<span class="params">seckillId, mode</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 获取秒杀地址</span></span><br><span class="line">        mode.hide().html(<span class="string">'&lt;button class="btn btn-primary btn-lg" id="killBtn"&gt;开始秒杀&lt;/button&gt;'</span>);</span><br><span class="line">        <span class="built_in">console</span>.debug(<span class="string">"开始进行秒杀地址获取"</span>);</span><br><span class="line">        $.get(seckill.URL.exposer(seckillId), &#123;&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (result &amp;&amp; result[<span class="string">'success'</span>]) &#123;</span><br><span class="line">                <span class="keyword">var</span> exposer = result[<span class="string">'data'</span>];</span><br><span class="line">                <span class="keyword">if</span> (exposer[<span class="string">'exposed'</span>]) &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"有秒杀地址接口"</span>);</span><br><span class="line">                    <span class="comment">// 开启秒杀,获取秒杀地址</span></span><br><span class="line">                    <span class="keyword">var</span> md5 = exposer[<span class="string">'md5'</span>];</span><br><span class="line">                    <span class="keyword">var</span> killUrl = seckill.URL.execution(seckillId, md5);</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"秒杀的地址为:"</span> + killUrl);</span><br><span class="line">                    <span class="comment">// 绑定一次点击事件</span></span><br><span class="line">                    $(<span class="string">"#killBtn"</span>).one(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">"开始进行秒杀,按钮被禁用"</span>);</span><br><span class="line">                        <span class="comment">// 执行秒杀请求,先禁用按钮</span></span><br><span class="line">                        $(<span class="keyword">this</span>).addClass(<span class="string">"disabled"</span>);</span><br><span class="line">                        <span class="comment">// 发送秒杀请求</span></span><br><span class="line">                        $.post(killUrl, &#123;&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">                            <span class="keyword">var</span> killResult = result[<span class="string">'data'</span>];</span><br><span class="line">                            <span class="keyword">var</span> state = killResult[<span class="string">'state'</span>];</span><br><span class="line">                            <span class="keyword">var</span> stateInfo = killResult[<span class="string">'stateInfo'</span>];</span><br><span class="line">                            <span class="built_in">console</span>.log(<span class="string">"秒杀状态"</span> + stateInfo);</span><br><span class="line">                            <span class="comment">// 显示秒杀结果</span></span><br><span class="line">                            mode.html(<span class="string">'&lt;span class="label label-success"&gt;'</span> + stateInfo + <span class="string">'&lt;/span&gt;'</span>);</span><br><span class="line"></span><br><span class="line">                        &#125;);</span><br><span class="line"></span><br><span class="line">                    &#125;);</span><br><span class="line">                    mode.show();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="built_in">console</span>.warn(<span class="string">"还没有暴露秒杀地址接口,无法进行秒杀"</span>);</span><br><span class="line">                    <span class="comment">// 未开启秒杀</span></span><br><span class="line">                    <span class="keyword">var</span> now = seckill.convertTime(exposer[<span class="string">'now'</span>]);</span><br><span class="line">                    <span class="keyword">var</span> start = seckill.convertTime(exposer[<span class="string">'start'</span>]);</span><br><span class="line">                    <span class="keyword">var</span> end = seckill.convertTime(exposer[<span class="string">'end'</span>]);</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"当前时间"</span> + now);</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"开始时间"</span> + start);</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"结束时间"</span> + end);</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"开始倒计时"</span>);</span><br><span class="line">                    <span class="built_in">console</span>.debug(<span class="string">"开始进行倒计时"</span>);</span><br><span class="line">                    seckill.countDown(seckillId, now, start, end);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.error(<span class="string">"服务器端查询秒杀商品详情失败"</span>);</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'result'</span> + result.valueOf());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    countDown: <span class="function"><span class="keyword">function</span> (<span class="params">seckillId, nowTime, startTime, endTime</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"秒杀的商品ID:"</span> + seckillId + <span class="string">",服务器当前时间："</span> + nowTime + <span class="string">",开始秒杀的时间:"</span> + startTime + <span class="string">",结束秒杀的时间"</span> + endTime);</span><br><span class="line">        <span class="comment">//  获取显示倒计时的文本域</span></span><br><span class="line">        <span class="keyword">var</span> seckillBox = $(<span class="string">"#seckill-box"</span>);</span><br><span class="line">        <span class="comment">//  获取时间戳进行时间的比较</span></span><br><span class="line">        nowTime = <span class="keyword">new</span> <span class="built_in">Date</span>(nowTime).valueOf();</span><br><span class="line">        startTime = <span class="keyword">new</span> <span class="built_in">Date</span>(startTime).valueOf();</span><br><span class="line">        endTime = <span class="keyword">new</span> <span class="built_in">Date</span>(endTime).valueOf();</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"转换后的Date类型当前时间戳"</span> + nowTime);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"转换后的Date类型开始时间戳"</span> + startTime);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"转换后的Date类型结束时间戳"</span> + endTime);</span><br><span class="line">        <span class="keyword">if</span> (nowTime &lt; endTime &amp;&amp; nowTime &gt; startTime) &#123;</span><br><span class="line">            <span class="comment">// 秒杀开始</span></span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"秒杀可以开始,两个条件符合"</span>);</span><br><span class="line">            seckill.handlerSeckill(seckillId, seckillBox);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (nowTime &gt; endTime) &#123;</span><br><span class="line">            alert(nowTime &gt; endTime);</span><br><span class="line">            <span class="built_in">console</span>.log(nowTime + <span class="string">"&gt;"</span> + startTime);</span><br><span class="line">            <span class="comment">// 秒杀结束</span></span><br><span class="line">            <span class="built_in">console</span>.warn(<span class="string">"秒杀已经结束了,当前时间为:"</span> + nowTime + <span class="string">",秒杀结束时间为"</span> + endTime);</span><br><span class="line">            seckillBox.html(<span class="string">"秒杀结束"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"秒杀还没开始"</span>);</span><br><span class="line">            alert(nowTime &lt; startTime);</span><br><span class="line">            <span class="comment">// 秒杀未开启</span></span><br><span class="line">            <span class="keyword">var</span> killTime = <span class="keyword">new</span> <span class="built_in">Date</span>(startTime + <span class="number">1000</span>);</span><br><span class="line">            <span class="built_in">console</span>.log(killTime);</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"开始计时效果"</span>);</span><br><span class="line">            seckillBox.countdown(killTime, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">                <span class="comment">// 事件格式</span></span><br><span class="line">                <span class="keyword">var</span> format = event.strftime(<span class="string">"秒杀倒计时: %D天 %H时 %M分 %S秒"</span>);</span><br><span class="line">                <span class="built_in">console</span>.log(format);</span><br><span class="line">                seckillBox.html(format);</span><br><span class="line">            &#125;).on(<span class="string">'finish.countdown'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="comment">// 事件完成后回调事件,获取秒杀地址,控制业务逻辑</span></span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"准备执行回调,获取秒杀地址,执行秒杀"</span>);</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"倒计时结束"</span>);</span><br><span class="line">                seckill.handlerSeckill(seckillId, seckillBox);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    cloneZero: <span class="function"><span class="keyword">function</span> (<span class="params">time</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> cloneZero = <span class="string">":00"</span>;</span><br><span class="line">        <span class="keyword">if</span> (time.length &lt; <span class="number">6</span>) &#123;</span><br><span class="line">            <span class="built_in">console</span>.warn(<span class="string">"需要拼接时间"</span>);</span><br><span class="line">            time = time + cloneZero;</span><br><span class="line">            <span class="keyword">return</span> time;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"时间是完整的"</span>);</span><br><span class="line">            <span class="keyword">return</span> time;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    convertTime: <span class="function"><span class="keyword">function</span> (<span class="params">localDateTime</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> year = localDateTime.year;</span><br><span class="line">        <span class="keyword">var</span> monthValue = localDateTime.monthValue;</span><br><span class="line">        <span class="keyword">var</span> dayOfMonth = localDateTime.dayOfMonth;</span><br><span class="line">        <span class="keyword">var</span> hour = localDateTime.hour;</span><br><span class="line">        <span class="keyword">var</span> minute = localDateTime.minute;</span><br><span class="line">        <span class="keyword">var</span> second = localDateTime.second;</span><br><span class="line">        <span class="keyword">return</span> year + <span class="string">"-"</span> + monthValue + <span class="string">"-"</span> + dayOfMonth + <span class="string">" "</span> + hour + <span class="string">":"</span> + minute + <span class="string">":"</span> + second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>自定义jstl标签参考资料<br><a href="https://stackoverflow.com/questions/35606551/jstl-localdatetime-format" target="_blank" rel="noopener">stackoverflow上的资料1</a><br><a href="https://stackoverflow.com/questions/30230517/taglib-to-display-java-time-localdate-formatted" target="_blank" rel="noopener">stackoverflow上的资料2</a><br>编写完了就部署运行吧,不出意外的话就是这个样子的:<br><img src="../images/result_1.jpg" alt="完整的页面"></p>
+<h3 id="上一篇-二-Java高并发秒杀API之Service层"><a href="#上一篇-二-Java高并发秒杀API之Service层" class="headerlink" title="上一篇  (二)Java高并发秒杀API之Service层"></a>上一篇  <a href="../note/note2.md">(二)Java高并发秒杀API之Service层</a></h3><h3 id="下一篇-四-Java高并发秒杀API之高并发优化"><a href="#下一篇-四-Java高并发秒杀API之高并发优化" class="headerlink" title="下一篇     (四)Java高并发秒杀API之高并发优化"></a>下一篇     <a href="../note/note4.md">(四)Java高并发秒杀API之高并发优化</a></h3><hr>
+<ul>
+<li><a href="../note/note2.md">(一)Java高并发秒杀API之Service层</a>  </li>
+</ul>
+<hr>
+<p> 如果项目流程总结中有什么问题欢迎发<code>Issue</code>给我,或者您也可以直接联系我<a href="mailto:`sunybyjava@gmail.com" target="_blank" rel="noopener">`sunybyjava@gmail.com</a>`,感谢您的阅读</p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="lvxiaohai99">
+            
+              <p class="site-author-name" itemprop="name">lvxiaohai99</p>
+              <p class="site-description motion-element" itemprop="description">Simba Growing Diary</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#三-Java高并发秒杀系统API之Web层开发"><span class="nav-number">1.</span> <span class="nav-text">(三)Java高并发秒杀系统API之Web层开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#既然是Web层的会肯定要先引入SpringMvc了"><span class="nav-number">1.1.</span> <span class="nav-text">既然是Web层的会肯定要先引入SpringMvc了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接下来编写Controller-SeckillController"><span class="nav-number">1.2.</span> <span class="nav-text">接下来编写Controller  SeckillController</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立一个全局ajax请求返回类-返回json类型"><span class="nav-number">1.3.</span> <span class="nav-text">建立一个全局ajax请求返回类,返回json类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#页面的编写"><span class="nav-number">1.4.</span> <span class="nav-text">页面的编写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上一篇-二-Java高并发秒杀API之Service层"><span class="nav-number">2.</span> <span class="nav-text">上一篇  (二)Java高并发秒杀API之Service层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下一篇-四-Java高并发秒杀API之高并发优化"><span class="nav-number">3.</span> <span class="nav-text">下一篇     (四)Java高并发秒杀API之高并发优化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lvxiaohai99</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

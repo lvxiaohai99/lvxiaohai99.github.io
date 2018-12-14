@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="辛巴成长记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="(四)Java高并发秒杀API之高并发优化下载Redis 下载完后解压压缩包   进入解压后的文件夹里面 ,执行命令  make 然后再执行sudo make install 最后再启动REdis,启动命令为redis-server 执行命令’redis-cli -p 6379’查看运行情况    使用Java操作Redis 导入操作Redis的jedis的 jar包 12345&amp;lt;depen">
+<meta name="keywords" content="son">
+<meta property="og:type" content="website">
+<meta property="og:title" content="辛巴成长记">
+<meta property="og:url" content="http://yoursite.com/note/note4.html">
+<meta property="og:site_name" content="辛巴成长记">
+<meta property="og:description" content="(四)Java高并发秒杀API之高并发优化下载Redis 下载完后解压压缩包   进入解压后的文件夹里面 ,执行命令  make 然后再执行sudo make install 最后再启动REdis,启动命令为redis-server 执行命令’redis-cli -p 6379’查看运行情况    使用Java操作Redis 导入操作Redis的jedis的 jar包 12345&amp;lt;depen">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-18T08:54:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="辛巴成长记">
+<meta name="twitter:description" content="(四)Java高并发秒杀API之高并发优化下载Redis 下载完后解压压缩包   进入解压后的文件夹里面 ,执行命令  make 然后再执行sudo make install 最后再启动REdis,启动命令为redis-server 执行命令’redis-cli -p 6379’查看运行情况    使用Java操作Redis 导入操作Redis的jedis的 jar包 12345&amp;lt;depen">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/note/note4.html">
+
+
+
+
+
+  <title> | 辛巴成长记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">辛巴成长记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">little Simba</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline"></h1>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <h3 id="四-Java高并发秒杀API之高并发优化"><a href="#四-Java高并发秒杀API之高并发优化" class="headerlink" title="(四)Java高并发秒杀API之高并发优化"></a>(四)Java高并发秒杀API之高并发优化</h3><h4 id="下载Redis"><a href="#下载Redis" class="headerlink" title="下载Redis"></a>下载<code>Redis</code></h4><ul>
+<li>下载完后解压压缩包</li>
+</ul>
+<ul>
+<li>进入解压后的文件夹里面 ,执行命令  <code>make</code><ul>
+<li>然后再执行<code>sudo make install</code></li>
+<li>最后再启动<code>REdis</code>,启动命令为<code>redis-server</code></li>
+<li>执行命令’redis-cli -p 6379’查看运行情况</li>
+</ul>
+</li>
+</ul>
+<h4 id="使用Java操作Redis"><a href="#使用Java操作Redis" class="headerlink" title="使用Java操作Redis"></a>使用<code>Java</code>操作<code>Redis</code></h4><ul>
+<li><p>导入操作<code>Redis</code>的<code>jedis</code>的 jar包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加<code>protostuff-core</code>以及<code>protostuff-runtime</code>序列化jar包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.dyuproject.protostuff<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>protostuff-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.dyuproject.protostuff<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>protostuff-runtime<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>com.suny.dao</code>下建包<code>cache</code></p>
+<ul>
+<li>然后建立类<code>RedisDao</code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 操作Redis的dao类</span></span><br><span class="line"><span class="comment"> * Created by 孙建荣 on 17-5-27.下午4:44</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisDao</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> JedisPool jedisPool;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> RuntimeSchema&lt;Seckill&gt; schema = RuntimeSchema.createFrom(Seckill.class);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RedisDao</span><span class="params">(String ip, <span class="keyword">int</span> port)</span> </span>&#123;</span><br><span class="line">        jedisPool = <span class="keyword">new</span> JedisPool(ip, port);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Seckill <span class="title">getSeckill</span><span class="params">(<span class="keyword">long</span> seckillId)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// redis操作业务逻辑</span></span><br><span class="line">        <span class="keyword">try</span> (Jedis jedis = jedisPool.getResource()) &#123;</span><br><span class="line">            String key = <span class="string">"seckill:"</span> + seckillId;</span><br><span class="line">            <span class="comment">// 并没有实现内部序列化操作</span></span><br><span class="line">            <span class="comment">//get-&gt;byte[]字节数组-&gt;反序列化&gt;Object(Seckill)</span></span><br><span class="line">            <span class="comment">// 采用自定义的方式序列化</span></span><br><span class="line">            <span class="comment">// 缓存获取到</span></span><br><span class="line">            <span class="keyword">byte</span>[] bytes = jedis.get(key.getBytes());</span><br><span class="line">            <span class="keyword">if</span> (bytes != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">// 空对象</span></span><br><span class="line">                Seckill seckill = schema.newMessage();</span><br><span class="line">                ProtostuffIOUtil.mergeFrom(bytes, seckill, schema);</span><br><span class="line">                <span class="comment">// seckill被反序列化</span></span><br><span class="line">                <span class="keyword">return</span> seckill;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.error(e.getMessage(), e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">putSeckill</span><span class="params">(Seckill seckill)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//  set Object(Seckill) -&gt; 序列化 -&gt; byte[]</span></span><br><span class="line">        <span class="keyword">try</span> (Jedis jedis = jedisPool.getResource()) &#123;</span><br><span class="line">            String key = <span class="string">"seckill:"</span> + seckill.getSeckillId();</span><br><span class="line">            <span class="keyword">byte</span>[] bytes = ProtostuffIOUtil.toByteArray(seckill, schema,</span><br><span class="line">                    LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));</span><br><span class="line">            <span class="comment">// 超时缓存</span></span><br><span class="line">            <span class="keyword">int</span> timeout=<span class="number">60</span>*<span class="number">60</span>;</span><br><span class="line">            <span class="keyword">return</span> jedis.setex(key.getBytes(), timeout, bytes);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.error(e.getMessage(), e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>下一步是在在<code>applicationContext-dao.xml</code>中注入<code>redisDao</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注入redisDao--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"redisDao"</span> <span class="attr">class</span>=<span class="string">"com.suny.dao.cache.RedisDao"</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!--构造方法注入值--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">value</span>=<span class="string">"localhost"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"1"</span> <span class="attr">value</span>=<span class="string">"6379"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>改造<code>exportSeckillUrl</code>方法,一定要先注入<code>redisDao</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisDao redisDao;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Exposer <span class="title">exportSeckillUrl</span><span class="params">(<span class="keyword">long</span> seckillId)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 根据秒杀的ID去查询是否存在这个商品</span></span><br><span class="line">       <span class="comment">/* Seckill seckill = seckillMapper.queryById(seckillId);</span></span><br><span class="line"><span class="comment">        if (seckill == null) &#123;</span></span><br><span class="line"><span class="comment">            logger.warn("查询不到这个秒杀产品的记录");</span></span><br><span class="line"><span class="comment">            return new Exposer(false, seckillId);</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line">        Seckill seckill = redisDao.getSeckill(seckillId);</span><br><span class="line">        <span class="keyword">if</span> (seckill == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 访问数据库读取数据</span></span><br><span class="line">            seckill = seckillMapper.queryById(seckillId);</span><br><span class="line">            <span class="keyword">if</span> (seckill == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Exposer(<span class="keyword">false</span>, seckillId);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 放入redis</span></span><br><span class="line">                redisDao.putSeckill(seckill);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断是否还没到秒杀时间或者是过了秒杀时间</span></span><br><span class="line">        LocalDateTime startTime = seckill.getStartTime();</span><br><span class="line">        LocalDateTime endTime = seckill.getEndTime();</span><br><span class="line">        LocalDateTime nowTime = LocalDateTime.now();</span><br><span class="line">        <span class="comment">//   开始时间大于现在的时候说明没有开始秒杀活动    秒杀活动结束时间小于现在的时间说明秒杀已经结束了</span></span><br><span class="line">        <span class="keyword">if</span> (nowTime.isAfter(startTime) &amp;&amp; nowTime.isBefore(endTime)) &#123;</span><br><span class="line">            <span class="comment">//秒杀开启,返回秒杀商品的id,用给接口加密的md5</span></span><br><span class="line">            String md5 = getMd5(seckillId);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Exposer(<span class="keyword">true</span>, md5, seckillId);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Exposer(<span class="keyword">false</span>, seckillId, nowTime, startTime, endTime);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>写存储过程,然后去<code>Mysql</code>控制台执行储存过程</p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 秒杀执行储存过程</span></span><br><span class="line">DELIMITER $$ <span class="comment">-- console ; 转换为</span></span><br><span class="line">$$</span><br><span class="line"><span class="comment">-- 定义储存过程</span></span><br><span class="line"><span class="comment">-- 参数： in 参数   out输出参数</span></span><br><span class="line"><span class="comment">-- row_count() 返回上一条修改类型sql(delete,insert,update)的影响行数</span></span><br><span class="line"><span class="comment">-- row_count:0:未修改数据 ; &gt;0:表示修改的行数； &lt;0:sql错误</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> <span class="string">`seckill`</span>.<span class="string">`execute_seckill`</span></span><br><span class="line">  (<span class="keyword">IN</span> v_seckill_id <span class="built_in">BIGINT</span>, <span class="keyword">IN</span> v_phone <span class="built_in">BIGINT</span>,</span><br><span class="line">   <span class="keyword">IN</span> v_kill_time  <span class="built_in">TIMESTAMP</span>, <span class="keyword">OUT</span> r_result <span class="built_in">INT</span>)</span><br><span class="line">  <span class="keyword">BEGIN</span></span><br><span class="line">    <span class="keyword">DECLARE</span> insert_count <span class="built_in">INT</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">START</span> <span class="keyword">TRANSACTION</span>;</span><br><span class="line">    <span class="keyword">INSERT</span> <span class="keyword">IGNORE</span> <span class="keyword">INTO</span> success_killed</span><br><span class="line">    (seckill_id, user_phone, create_time)</span><br><span class="line">    <span class="keyword">VALUES</span> (v_seckill_id, v_phone, v_kill_time);</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">row_count</span>()</span><br><span class="line">    <span class="keyword">INTO</span> insert_count;</span><br><span class="line">    IF (insert_count = 0)</span><br><span class="line">    THEN</span><br><span class="line">      <span class="keyword">ROLLBACK</span>;</span><br><span class="line">      <span class="keyword">SET</span> r_result = <span class="number">-1</span>;</span><br><span class="line">    ELSEIF (insert_count &lt; 0)</span><br><span class="line">      THEN</span><br><span class="line">        <span class="keyword">ROLLBACK</span>;</span><br><span class="line">        <span class="keyword">SET</span> r_result = <span class="number">-2</span>;</span><br><span class="line">    ELSE</span><br><span class="line">      <span class="keyword">UPDATE</span> seckill</span><br><span class="line">      <span class="keyword">SET</span> <span class="built_in">number</span> = <span class="built_in">number</span> - <span class="number">1</span></span><br><span class="line">      <span class="keyword">WHERE</span> seckill_id = v_seckill_id</span><br><span class="line">            <span class="keyword">AND</span> end_time &gt; v_kill_time</span><br><span class="line">            <span class="keyword">AND</span> start_time &lt; v_kill_time</span><br><span class="line">            <span class="keyword">AND</span> <span class="built_in">number</span> &gt; <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">SELECT</span> <span class="keyword">row_count</span>()</span><br><span class="line">      <span class="keyword">INTO</span> insert_count;</span><br><span class="line">      IF (insert_count = 0)</span><br><span class="line">      THEN</span><br><span class="line">        <span class="keyword">ROLLBACK</span>;</span><br><span class="line">        <span class="keyword">SET</span> r_result = <span class="number">0</span>;</span><br><span class="line">      ELSEIF (insert_count &lt; 0)</span><br><span class="line">        THEN</span><br><span class="line">          <span class="keyword">ROLLBACK</span>;</span><br><span class="line">          <span class="keyword">SET</span> r_result = <span class="number">-2</span>;</span><br><span class="line">      ELSE</span><br><span class="line">        <span class="keyword">COMMIT</span>;</span><br><span class="line">        <span class="keyword">SET</span> r_result = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">END</span> <span class="keyword">IF</span>;</span><br><span class="line">    <span class="keyword">END</span> <span class="keyword">IF</span>;</span><br><span class="line">  <span class="keyword">END</span>;</span><br><span class="line">$$</span><br><span class="line"><span class="comment">--  储存过程定义结束</span></span><br><span class="line">DELIMITER ;</span><br><span class="line"><span class="keyword">SET</span> @r_result = <span class="number">-3</span>;</span><br><span class="line"><span class="comment">--  执行储存过程</span></span><br><span class="line"><span class="keyword">CALL</span> execute_seckill(<span class="number">1003</span>, <span class="number">13502178891</span>, <span class="keyword">now</span>(), @r_result);</span><br><span class="line"><span class="comment">-- 获取结果</span></span><br><span class="line"><span class="keyword">SELECT</span> @r_result;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>在<code>SeckillMapper</code>中编写<code>killProduce()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    *  使用储存过程执行秒杀</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> paramMap</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">killByProcedure</span><span class="params">(Map&lt;String,Object&gt; paramMap)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后在<code>SeckillMapper.xml</code>中写<code>sql</code>语句</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--调用储存过程--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"killByProcedure"</span> <span class="attr">statementType</span>=<span class="string">"CALLABLE"</span>&gt;</span></span><br><span class="line">        CALL execute_seckill(</span><br><span class="line">                #&#123;seckillId,jdbcType=BIGINT,mode=IN&#125;,</span><br><span class="line">                #&#123;phone,jdbcType=BIGINT,mode=IN&#125;,</span><br><span class="line">                #&#123;killTime,jdbcType=TIMESTAMP,mode=IN&#125;,</span><br><span class="line">                #&#123;result,jdbcType=INTEGER,mode=OUT&#125;</span><br><span class="line">        )</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>下一步在<code>SeckillService</code>接口中中编写 <code>killProduce()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">SeckillExecution <span class="title">executeSeckillProcedure</span><span class="params">(<span class="keyword">long</span> seckillId,<span class="keyword">long</span> userPhone,String md5)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入<code>commons-collections</code>工具类</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--导入apache工具类--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-collections<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-collections<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后<code>SeckillServiceImpl</code>实现<code>killProduce()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SeckillExecution <span class="title">executeSeckillProcedure</span><span class="params">(<span class="keyword">long</span> seckillId, <span class="keyword">long</span> userPhone, String md5)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (md5 == <span class="keyword">null</span> || !md5.equals(getMd5(seckillId))) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.DATE_REWRITE);</span><br><span class="line">        &#125;</span><br><span class="line">        LocalDateTime killTime = LocalDateTime.now();</span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">"seckillId"</span>, seckillId);</span><br><span class="line">        map.put(<span class="string">"phone"</span>, userPhone);</span><br><span class="line">        map.put(<span class="string">"killTime"</span>, killTime);</span><br><span class="line">        map.put(<span class="string">"result"</span>, <span class="keyword">null</span>);</span><br><span class="line">        <span class="comment">// 执行储存过程,result被复制</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            seckillMapper.killByProcedure(map);</span><br><span class="line">            <span class="comment">// 获取result</span></span><br><span class="line">            <span class="keyword">int</span> result = MapUtils.getInteger(map, <span class="string">"result"</span>, -<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span> (result == <span class="number">1</span>) &#123;</span><br><span class="line">                SuccessKilled successKilled = successKilledMapper.queryByIdWithSeckill(seckillId, userPhone);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.SUCCESS, successKilled);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.stateOf(result));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.error(e.getMessage(), e);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.INNER_ERROR);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>改造执行秒杀<code>executeSeckill</code>方法,减少一道虚拟机<code>GC</code>程序,优化性能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SeckillExecution <span class="title">executeSeckill</span><span class="params">(<span class="keyword">long</span> seckillId, <span class="keyword">long</span> userPhone, String md5)</span> <span class="keyword">throws</span> SeckillException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (md5 == <span class="keyword">null</span> || !md5.equals(getMd5(seckillId))) &#123;</span><br><span class="line">            logger.error(<span class="string">"秒杀数据被篡改"</span>);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> SeckillException(<span class="string">"seckill data rewrite"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 执行秒杀业务逻辑</span></span><br><span class="line">        LocalDateTime nowTIme = LocalDateTime.now();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 记录购买行为</span></span><br><span class="line">            <span class="keyword">int</span> insertCount = successKilledMapper.insertSuccessKilled(seckillId, userPhone);</span><br><span class="line">            <span class="keyword">if</span> (insertCount &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 重复秒杀</span></span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RepeatKillException(<span class="string">"seckill repeated"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 减库存 ,热点商品的竞争</span></span><br><span class="line">                <span class="keyword">int</span> reduceNumber = seckillMapper.reduceNumber(seckillId, nowTIme);</span><br><span class="line">                <span class="keyword">if</span> (reduceNumber &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    logger.warn(<span class="string">"没有更新数据库记录,说明秒杀结束"</span>);</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> SeckillCloseException(<span class="string">"seckill is closed"</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 秒杀成功了,返回那条插入成功秒杀的信息  进行commit</span></span><br><span class="line">                    SuccessKilled successKilled = successKilledMapper.queryByIdWithSeckill(seckillId, userPhone);</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.SUCCESS, successKilled);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SeckillCloseException | RepeatKillException e1) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写<code>SeckillServiceImpl</code>中的<code>killProduce()</code>方法的测试方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">executeSeckillProcedureTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">long</span> seckillId = <span class="number">1001</span>;</span><br><span class="line">       <span class="keyword">long</span> phone = <span class="number">1368011101</span>;</span><br><span class="line">       Exposer exposer = seckillService.exportSeckillUrl(seckillId);</span><br><span class="line">       <span class="keyword">if</span> (exposer.isExposed()) &#123;</span><br><span class="line">           String md5 = exposer.getMd5();</span><br><span class="line">           SeckillExecution execution = seckillService.executeSeckillProcedure(seckillId, phone, md5);</span><br><span class="line">           System.out.println(execution.getStateInfo());</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>改造<code>SeckillController</code>中的<code>execute</code>方法调用,把一开始调用普通方法的改成调用储存过程的那个方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@RequestMapping</span>(value = <span class="string">"/&#123;seckillId&#125;/&#123;md5&#125;/execution"</span>, method = RequestMethod.POST)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SeckillResult&lt;SeckillExecution&gt; <span class="title">execute</span><span class="params">(@PathVariable(<span class="string">"seckillId"</span>)</span> <span class="keyword">long</span> seckillId,</span></span><br><span class="line"><span class="function">                                                   @<span class="title">PathVariable</span><span class="params">(<span class="string">"md5"</span>)</span> String md5,</span></span><br><span class="line"><span class="function">                                                   @<span class="title">CookieValue</span><span class="params">(value = <span class="string">"userPhone"</span>, required = <span class="keyword">false</span>)</span> Long userPhone) </span>&#123;</span><br><span class="line">        <span class="comment">// 如果用户的手机号码为空的说明没有填写手机号码进行秒杀</span></span><br><span class="line">        <span class="keyword">if</span> (userPhone == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">false</span>, <span class="string">"没有注册"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 根据用户的手机号码,秒杀商品的id跟md5进行秒杀商品,没异常就是秒杀成功</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 这里换成储存过程</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//            SeckillExecution execution = seckillService.executeSeckill(seckillId, userPhone, md5);</span></span><br><span class="line">            SeckillExecution execution = seckillService.executeSeckillProcedure(seckillId, userPhone, md5);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">true</span>, execution);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RepeatKillException e1) &#123;</span><br><span class="line">            <span class="comment">// 重复秒杀</span></span><br><span class="line">            SeckillExecution execution = <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.REPEAT_KILL);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">false</span>, execution);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SeckillCloseException e2) &#123;</span><br><span class="line">            <span class="comment">// 秒杀关闭</span></span><br><span class="line">            SeckillExecution execution = <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.END);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">false</span>, execution);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SeckillException e) &#123;</span><br><span class="line">            <span class="comment">// 不能判断的异常</span></span><br><span class="line">            SeckillExecution execution = <span class="keyword">new</span> SeckillExecution(seckillId, SeckillStatEnum.INNER_ERROR);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SeckillResult&lt;&gt;(<span class="keyword">false</span>, execution);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果有异常就是秒杀失败</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="上一篇-三-Java高并发秒杀API之web层"><a href="#上一篇-三-Java高并发秒杀API之web层" class="headerlink" title="上一篇    (三)Java高并发秒杀API之web层"></a>上一篇    <a href="../note/note3.md">(三)Java高并发秒杀API之web层</a></h3><hr>
+<ul>
+<li><p><a href="../note/note1.md">(一)Java高并发秒杀API之业务分析与DAO层</a></p>
+</li>
+<li><p><a href="../note/note2.md">(二)Java高并发秒杀API之Service层</a>  </p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p> 如果项目流程总结中有什么问题欢迎发<code>Issue</code>给我,或者您也可以直接联系我<a href="mailto:`sunybyjava@gmail.com" target="_blank" rel="noopener">`sunybyjava@gmail.com</a>`,感谢您的阅读</p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="lvxiaohai99">
+            
+              <p class="site-author-name" itemprop="name">lvxiaohai99</p>
+              <p class="site-description motion-element" itemprop="description">Simba Growing Diary</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#四-Java高并发秒杀API之高并发优化"><span class="nav-number">1.</span> <span class="nav-text">(四)Java高并发秒杀API之高并发优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载Redis"><span class="nav-number">1.1.</span> <span class="nav-text">下载Redis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Java操作Redis"><span class="nav-number">1.2.</span> <span class="nav-text">使用Java操作Redis</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上一篇-三-Java高并发秒杀API之web层"><span class="nav-number">2.</span> <span class="nav-text">上一篇    (三)Java高并发秒杀API之web层</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lvxiaohai99</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
